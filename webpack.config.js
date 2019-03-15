@@ -31,17 +31,37 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
-                exclude: /(node_modules)/,
-                use: ['babel-loader'], // we use this to transpile es6 code on the web
-              },
-              {
-                test: /\.css$/,
-                use: [
-                  MiniCssExtractPlugin.loader,
-                  "css-loader", "postcss-loader",
-                  ],
+              test: /\.(js|jsx)$/,
+              exclude: /(node_modules)/,
+              use: ['babel-loader'], // we use this to transpile es6 code on the web
+            },
+            {
+              test: /\.css$/,
+              use: [
+                MiniCssExtractPlugin.loader,
+                "css-loader", "postcss-loader",
+              ],
+            },
+            {
+              test: /\.less$/,
+              use: [
+                {
+                  loader: "style-loader"
                 },
+                {
+                  loader: "css-loader",
+                  options: {
+                    sourceMap: true,
+                    modules: true,
+                    localIdentName: "[local]___[hash:base64:5]"
+                  }
+                },
+                {
+                  loader: "less-loader"
+                }
+              ]
+            }
+
         ]
     },
     plugins: [
